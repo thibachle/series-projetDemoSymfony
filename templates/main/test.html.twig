@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} | Test
+{% endblock %}
+
+{% block body %}
+
+
+    <h1>On a fait un test !</h1>
+{# Création e variable #}
+{% set name = "Sylvain" %}
+
+<h2> Hello {{ name }} !</h2>
+
+
+{# ============================== #}
+{# création un tableau #}
+{% set colors = ['red', 'orange', 'yellow', 'blue', 'violet'] %}
+
+{# boucle for #}
+{% for color in colors %}
+    <div style="background-color: {{ color }}">{{ color }} {{ loop.index }}</div>
+    {% if loop.first %}
+        <p>Premiere passage</p>
+    {% endif %}
+{% endfor %}
+
+
+{# ============================== #}
+{# utilisateur d'objet #}
+{%
+    set book = {
+        title: "Dune",
+        author: "Frank Herbert",
+        year: 1965
+    }
+ %}
+<p>{{ book.title }} est écris par {{ book.author }} en {{ book.year }}</p>
+
+ {# boucle sur clé/valeur #}
+{% for key, val in book %}
+    <div>{{ key }} : {{ val }}</div>
+
+{% endfor %}
+
+{# Quelques filtres #}
+
+<div>Hello {{ name | upper }}</div>
+<div>Hello {{ name | upper | length }}</div>
+<div>Hello {{ name | length }}</div>
+
+<div>{{ colors | join('-') }}</div>
+
+<div>{{ "now" | date('d-m-Y') }}</div>
+<div>{{ "+ 1 year" | date('d-m-Y') }}</div>
+
+
+{% endblock %}
+
+

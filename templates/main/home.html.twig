@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2>Home !</h2>
+{% endblock %}
+
+{# {{parent()}} appelle contenue de bloc parent si il y a quelque chose #}
+{% block title %}
+    {{ parent() }} | Home
+{% endblock %}
