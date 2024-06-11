@@ -1,9 +1,10 @@
 {# nav>ul>(li>a)*4 #}
 <nav>
     <ul>
-        <li><a href="">Home</a></li>
-        <li><a href="">About us</a></li>
-        <li><a href="">Product</a></li>
-        <li><a href="">Contact</a></li>
+        <li><a href="{{ path('main_home') }}">Home</a></li>
+        <li><a href="{{ path('main_test') }}">Tests</a></li>
+        <li><a href="{{ path('series_list') }}">All series</a></li>
+        <li><a href="{{ path('series_create') }}">Add a series</a></li>
+
     </ul>
 </nav>

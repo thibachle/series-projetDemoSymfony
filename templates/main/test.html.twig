@@ -55,6 +55,17 @@
 <div>{{ "now" | date('d-m-Y') }}</div>
 <div>{{ "+ 1 year" | date('d-m-Y') }}</div>
 
+    <div>
+        <p>Titre de la série {{ got.title }} | {{ got['year'] }} </p>
+        <p>Titre de la série {{ boys['title'] }}| {{ boys.year }} </p>
+
+    </div>
+
+    <div>
+        {{ username }}
+        {{ username | raw }}
+        {{ username | striptags }}
+    </div>
 
 {% endblock %}
 
