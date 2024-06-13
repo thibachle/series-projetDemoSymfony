@@ -41,7 +41,7 @@ class SerieRepository extends ServiceEntityRepository
         //set la la limite
         $query->setMaxResults(10);
 
-        //retourne les r&cultats de la requête
+        //retourne les résultats de la requête
          return $query->getResult();
 
 
