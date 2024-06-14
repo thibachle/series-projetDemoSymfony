@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+
 class SerieType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -33,6 +34,7 @@ class SerieType extends AbstractType
                 'attr' => [
                     'class' => 'machin'
                 ]//permet ajouter une class en HTML
+
             ])
 
             ->add('vote')
