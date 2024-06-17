@@ -16,7 +16,7 @@ class SerieRepository extends ServiceEntityRepository
         parent::__construct($registry, Serie::class);
     }
 
-    public function findBestSeries()
+    public function findBestSeries(int $page)
     {
         //en DQL
 //        //récupération de l'entitymanager
@@ -28,23 +28,30 @@ class SerieRepository extends ServiceEntityRepository
 //        //cre&tion de la query
 //        $query = $em->createQuery($dql);
 
+        //pagination
+        //page = 0; o->19
+        //page = 2; 20->39
+
+        $limit = Serie::SERIES_PER_PAGE;
+        $offset = ($page -1)* $limit;
 
         //en QureyBuider
-
         $qb = $this->createQueryBuilder('s');
-        $qb->andWhere("s.popularity > 200")
-            ->addOrderBy("s.vote", "DESC");
 
+//        $qb->andWhere("s.popularity > 200")
+//            ->addOrderBy("s.vote", "DESC");
+
+        $qb->addOrderBy("s.popularity", "DESC");
         $query = $qb->getQuery();
 
         //pareil pour les 2 possibilité
         //set la la limite
-        $query->setMaxResults(10);
+        $query->setMaxResults($limit);
+        $query->setFirstResult($offset);
+
 
         //retourne les résultats de la requête
          return $query->getResult();
-
-
 
     }
 

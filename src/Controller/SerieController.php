@@ -14,22 +14,37 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/series', name: 'series_')]
 class SerieController extends AbstractController
 {
-    #[Route('', name: 'list')]
-    public function list(SerieRepository $serieRepository): Response
+    #[Route('/{page}', name: 'list', requirements: ['page' => '\d+'])]
+    public function list(
+        SerieRepository $serieRepository,
+        int $page = 1
+    ): Response
     {
 //        $series = $serieRepository->findAll();
-
 //        $series = $serieRepository->findBy([],["popularity" => "DESC"], 50, 50);
 
-        $series = $serieRepository->findBestSeries();
+        if($page < 1){
+            $page = 1;
+        }
+
+        $nbSeriesMax = $serieRepository->count([]);
+        $maxPage = ceil($nbSeriesMax / Serie::SERIES_PER_PAGE);
+
+        if($page > $maxPage){
+            $page = $maxPage;
+        }
+
+        $series = $serieRepository->findBestSeries($page);
 
         return $this->render('series/list.html.twig', [
-            "series" => $series
+            "series" => $series,
+            "currentPage"=>$page,
+            'maxPage' =>$maxPage
         ]);
     }
 
 
-    #[Route('/{id}', name: 'detail', requirements: ['id' => '\d+'])]
+    #[Route('/detail/{id}', name: 'detail', requirements: ['id' => '\d+'])]
     public function detail(SerieRepository $serieRepository, Serie $id ): Response
     {
 //        dump($id);

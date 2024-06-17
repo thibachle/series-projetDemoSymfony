@@ -2,7 +2,16 @@
 
 {% block body %}
     <h2>Series List !</h2>
+    <div class="flex_div flex_between">
+        {% if currentPage > 1 %}
+            <a class="link_button" href="{{ path('series_list', {'page': currentPage - 1}) }}">Previous Page</a>
+        {% endif %}
+        {% if currentPage < maxPage %}
+            <a class="link_button" href="{{ path('series_list', {'page': currentPage + 1}) }}">Next Page</a>
+        {% endif %}
+    </div>
     <section class="series-list">
+
         {% for serie in series %}
             <article>
                 <a href="{{ path('series_detail', {'id': serie.id }) }}">
