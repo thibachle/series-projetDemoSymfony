@@ -53,13 +53,27 @@ class SerieController extends AbstractController
         //creation du formulaire associé à l'instance de serie
         $serieForm = $this->createForm(SerieType::class, $serie);
 
-        dump($serie);
-        dump($request);
-        //extraie des informations de la requête HTTP
+         //extraie des informations de la requête HTTP
         $serieForm->handleRequest($request);
 
         if($serieForm->isSubmitted() && $serieForm->isValid()){
-            dump($serie);
+
+            /*
+             * @var Uploaded File $file
+             * */
+            //récupération du fichier de type UploadedFile
+            $file = $serieForm->get('poster')->getData();
+
+            //création se son nom
+            $newFilename = $serie->getName(). '-' .uniqid() . '. '. $file->guessExtension();
+
+            //sauvergarder dans le bon répertoire en le renomant
+
+//            $file->move('/assets/images/posters/series', $newFilename);
+            $file->move($this->getParameter('serie_poster_directory'), $newFilename);
+
+            //Setter le nouveau nom dans
+            $serie->setPoster($newFilename);
             $entityManager->persist($serie);
             $entityManager->flush();
 
