@@ -75,6 +75,55 @@ class SerieController extends AbstractController
         ]);
     }
 
+    #[Route('/update/{id}', name: 'update')]
+    public function update(
+        EntityManagerInterface $entityManager,
+        Request $request,
+        SerieRepository $serieRepository,
+        int $id): Response
+    {
+        $serie = $serieRepository->find($id);
+
+        if(!$serie){
+            throw $this->createNotFoundException("Oop ! Series is not found !");
+        }
+        $serieForm = $this->createForm(SerieType::class, $serie);
+        $serieForm->handleRequest($request);
+
+        if($serieForm ->isSubmitted() && $serieForm->isValid()){
+
+            $serie->setDateModified(new \DateTime());
+            $entityManager->persist($serie);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Series have been updated');
+            return  $this->redirectToRoute('series_detail', ['id' => $id]);
+        }
+
+        return $this->render('series/update.html.twig', [
+//                'serieForm' => $serieForm
+                    'updateSerieForm' => $serieForm
+            ]);
+    }
+
+    #[Route('/delete/{id}', name: 'delete')]
+    public function delete(
+        EntityManagerInterface $entityManager,
+        SerieRepository $serieRepository,
+        int $id
+    ): Response
+    {
+        $serie = $serieRepository->find($id);
+
+        if(!$serie){
+            throw $this->createNotFoundException('Series is not found');
+        }
+        $entityManager->remove($serie);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Series is deleted');
+        return $this->redirectToRoute('series_list');
+    }
 
 
 

@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+{#{% form_theme serieForm 'views/form_theme/form_theme.html.twig' %}#}
+
+
+{% block body %}
+{#    <h2>Update a serie ! </h2>#}
+
+{#    {{ form_start(serieForm) }}#}
+{#    {{ form_widget(serieForm) }}#}
+{#    <button>Update a Series ! </button>#}
+{#    {{ form_end(serieForm) }}#}
+
+    {% embed 'views/form_view/form_display.html.twig' with {'serieForm' : updateSerieForm} %}
+        {% block form_title %}
+            Update a new Series !
+        {% endblock %}
+
+        {% block form_label_submit %}
+            Update a serie !
+        {% endblock %}
+
+    {% endembed %}
+
+
+{% endblock %}

@@ -3,13 +3,23 @@
 
 
 {% block body %}
-    <h2>Add a new serie ! </h2>
+{#    <h2>Add a new serie ! </h2>#}
 
-    {{ form_start(serieForm) }}
-    {{ form_widget(serieForm) }}
-    <button>Create a Series ! </button>
-    {{ form_end(serieForm) }}
+{#    {{ form_start(serieForm) }}#}
+{#    {{ form_widget(serieForm) }}#}
+{#    <button>Create a Series ! </button>#}
+{#    {{ form_end(serieForm) }}#}
 
+    {% embed 'views/form_view/form_display.html.twig' %}
+        {% block form_title %}
+            Create a new Series !
+        {% endblock %}
+
+        {% block form_label_submit %}
+            Create a serie !
+        {% endblock %}
+
+    {% endembed %}
 
 {% endblock %}
 
