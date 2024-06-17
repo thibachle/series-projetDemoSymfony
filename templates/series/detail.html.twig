@@ -23,6 +23,22 @@
 
     </div>
 
+    <div class="seasons">
+
+            <h3>Season !</h3>
+            {% for season in serie.seasons %}
+                <article>
+                    <img src="{{ asset('images/posters/seasons/' ~ season.poster) }}"
+                            alt="{{ serie.name }} -  {{ season.number }}">
+                    <div>
+                        <h4>Season #{{ season.number }}</h4>
+                        <div>{{ season.overview | nl2br }}</div>
+                    </div>
+                </article>
+            {%  endfor %}
+
+
+    </div>
 
 {% endblock %}
 
