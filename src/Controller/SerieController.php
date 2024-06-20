@@ -49,16 +49,19 @@ class SerieController extends AbstractController
     #[Route('/detail/{id}', name: 'detail', requirements: ['id' => '\d+'])]
     public function detail(SerieRepository $serieRepository, Serie $id ): Response
     {
-        dump($id);
         $serie = $serieRepository->find($id);
 
         if(!$serie){
             throw $this->createNotFoundException("Ooops ! Serie is not found !");
         }
 
-        dump($serie);
+        //permet de faire des requêtes GET facilement
+        $json = file_get_contents('https://jsonplaceholder.typicode.com/comments');
+        $comments = json_decode($json, true);
+
         return $this->render('series/detail.html.twig', [
-            'serie' => $id
+            'serie' => $serie,
+            'comments' => $comments
         ]);
     }
 
